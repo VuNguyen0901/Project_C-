@@ -1,5 +1,5 @@
 # Define compiler and flags
-CXX = clang++
+CXX = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++17
 
 # Define directories
@@ -26,11 +26,12 @@ $(TARGET): $(OBJFILES)
 	$(CXX) $(OBJFILES) -o $@
 
 # Rule to compile source files into object files
-$(BUILDDIR)/%.o : $(SRCDIR)/%.cpp | $(BUILDDIR)/%/
+$(BUILDDIR)/%.o : $(SRCDIR)/%.cpp | $(BUILDDIR)/ 
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+	
 
 # Ensure the directory for the object file exists
-$(BUILDDIR)/%/:
+$(BUILDDIR)/:
 	mkdir -p $@
 
 $(TARGETDIR)/:
@@ -40,8 +41,10 @@ $(TARGETDIR)/:
 clean:
 	rm -rf $(BUILDDIR)
 	rm -rf $(TARGET)
+	rm -rf $(TARGETDIR)
 
 run:
 	./$(TARGET)
+
 
 .PHONY: all clean

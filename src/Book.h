@@ -2,18 +2,18 @@
 #define BOOK_H
 
 #include <string>
-
+using namespace std;
 class Book {
 private:
-    std::string title;
-    std::string author;
+    string title;
+    string author;
     int bookID;
 
 public:
-    Book(const std::string &title, const std::string &author, int bookID);
+    Book(const string &title, const string &author, int bookID);
     
-    std::string getTitle() const;
-    std::string getAuthor() const;
+    string getTitle() const;
+    string getAuthor() const;
     int getBookID() const;
     void displayInfo() const;
 };
