@@ -1,5 +1,5 @@
 # Define compiler and flags
-CXX = g++
+CXX = clang++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++17
 
 # Define directories
@@ -14,12 +14,12 @@ INCLUDES = $(shell find $(SRCDIR) -type d | sed 's/^/-I /')
 SRCFILES = $(shell find $(SRCDIR) -name "*.cpp")
 
 # Create object file names in the build directory, preserving directory structure
-OBJFILES = $(patsubst $(SRCDIR)/%.cpp, $(BUILDDIR)/%.o,$(SRCFILES))
+OBJFILES = $(patsubst $(SRCDIR)/%.cpp, $(BUILDDIR)/%.o, $(SRCFILES))
 
 # Define the target executable
 TARGET = $(TARGETDIR)/testapp
 
-all: $(TARGETDIR)/ | $(TARGET) 
+all: $(TARGETDIR)/ | $(TARGET)
 
 # Rule to link object files to create the final executable
 $(TARGET): $(OBJFILES)
@@ -40,7 +40,6 @@ $(TARGETDIR)/:
 clean:
 	rm -rf $(BUILDDIR)
 	rm -rf $(TARGET)
-	rm -rf $(TARGETDIR)
 
 run:
 	./$(TARGET)
