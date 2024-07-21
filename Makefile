@@ -23,28 +23,33 @@ all: $(TARGETDIR)/ | $(TARGET)
 
 # Rule to link object files to create the final executable
 $(TARGET): $(OBJFILES)
+	echo "#########"
+	echo $(OBJFILES)
+	
 	$(CXX) $(OBJFILES) -o $@
 
 # Rule to compile source files into object files
-$(BUILDDIR)/%.o : $(SRCDIR)/%.cpp | $(BUILDDIR)/ 
+$(BUILDDIR)/%.o : $(SRCDIR)/%.cpp | $(BUILDDIR)/%/
+	
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 	
 
 # Ensure the directory for the object file exists
-$(BUILDDIR)/:
-	mkdir -p $@
+$(BUILDDIR)/%/:
+	echo $@
+	mkdir -p $(dir $@)
 
 $(TARGETDIR)/:
 	mkdir -p $@
 
 # Clean up build directory
 clean:
-	rm -rf $(BUILDDIR)
-	rm -rf $(TARGET)
-	rm -rf $(TARGETDIR)
+	@rm -rf $(BUILDDIR)
+	@rm -rf $(TARGET)
+	@rm -rf $(TARGETDIR)
 
 run:
 	./$(TARGET)
 
 
-.PHONY: all clean
+.PHONY: all
